@@ -1,7 +1,7 @@
 import machine
 import math
 
-__VERSION__ = "0.0.0"
+__VERSION__ = "0.0.1"
 
 SCL_PIN = 21
 SDA_PIN = 20
@@ -99,8 +99,8 @@ class MahirSensor:
         hum = (data[6] << 8 | data[7]) / 1024.0
 
         # Compute temperature in Celsius
-        var1 = ((temp / 16384.0) - (dig_T1 / 1024.0)) * dig_T2
-        var2 = (((temp / 131072.0) - (dig_T1 / 8192.0)) ** 2) * dig_T3
+        var1 = (temp / 16384.0 - dig_T1 / 1024.0) * dig_T2
+        var2 = (temp / 131072.0 - dig_T1 / 8192.0) * (temp / 131072.0 - dig_T1 / 8192.0) * dig_T3
         t_fine = var1 + var2
         temp_c = t_fine / 5120.0
 
